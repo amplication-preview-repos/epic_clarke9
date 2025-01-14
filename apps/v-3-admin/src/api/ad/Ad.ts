@@ -1,0 +1,22 @@
+export type Ad = {
+  adsGroupId: string;
+  adsId: string;
+  campaign: string | null;
+  company: string | null;
+  content: string | null;
+  createdAt: Date | null;
+  createdById: string | null;
+  endDate: Date;
+  id: string;
+  image: string | null;
+  isDeleted: boolean;
+  lang: string;
+  pages: string | null;
+  sortNo: number | null;
+  startDate: Date;
+  title: string | null;
+  updatedAt: Date | null;
+  updatedById: string | null;
+  url: string | null;
+  video: string | null;
+};

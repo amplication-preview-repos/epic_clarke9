@@ -1,0 +1,90 @@
+import { Clap } from "../clap/Clap";
+import { CopyTradeOrder } from "../copyTradeOrder/CopyTradeOrder";
+import { CopyTrade } from "../copyTrade/CopyTrade";
+import { Report } from "../report/Report";
+import { SetupValueHistory } from "../setupValueHistory/SetupValueHistory";
+import { User } from "../user/User";
+import { TraderSetupPnlPerformance } from "../traderSetupPnlPerformance/TraderSetupPnlPerformance";
+import { UserNotification } from "../userNotification/UserNotification";
+import { WatchList } from "../watchList/WatchList";
+
+export type Setup = {
+  activatedStopValue: number | null;
+  activationDate: Date | null;
+  category?: "spot" | "futures";
+  clap?: Array<Clap>;
+  clapCount: number | null;
+  closeDate: Date | null;
+  closePrice: number | null;
+  closedById: string | null;
+  coinName: string;
+  copyTradeOrder?: Array<CopyTradeOrder>;
+  copyTrades?: Array<CopyTrade>;
+  createdAt: Date | null;
+  createdById: string | null;
+  duration?: "shortterm" | "midterm" | "longterm" | null;
+  entryValue: number;
+  entryValueEnd: number | null;
+  id: string;
+  image: string | null;
+  imageSuccess: string | null;
+  initialEntryValue: number | null;
+  initialEntryValueEnd: number | null;
+  initialProfitTaking1: number | null;
+  initialProfitTaking2: number | null;
+  initialProfitTaking3: number | null;
+  initialProfitTakingAmount1: number | null;
+  initialProfitTakingAmount2: number | null;
+  initialProfitTakingAmount3: number | null;
+  initialRr: string | null;
+  initialStopValue: number | null;
+  isActive: boolean;
+  isDeleted: boolean;
+  isHidden: boolean;
+  isStop: boolean | null;
+  isTargeted: boolean;
+  isTp1: boolean | null;
+  isTp2: boolean | null;
+  isTp3: boolean | null;
+  position?: "long" | "short" | null;
+  previousEntryValue: number | null;
+  previousEntryValueEnd: number | null;
+  previousProfitTaking1: number | null;
+  previousProfitTaking2: number | null;
+  previousProfitTaking3: number | null;
+  previousProfitTakingAmount1: number | null;
+  previousProfitTakingAmount2: number | null;
+  previousProfitTakingAmount3: number | null;
+  previousStopValue: number | null;
+  profitTaking1: number | null;
+  profitTaking2: number | null;
+  profitTaking3: number | null;
+  profitTakingAmount1: number | null;
+  profitTakingAmount2: number | null;
+  profitTakingAmount3: number | null;
+  rValue: number | null;
+  report?: Array<Report>;
+  setupValueHistory?: Array<SetupValueHistory>;
+  status?:
+    | "incoming"
+    | "active"
+    | "cancelled"
+    | "stopped"
+    | "success"
+    | "closed";
+  stopDate: Date | null;
+  stopDistance: number | null;
+  stopValue: number | null;
+  subStatus: string | null;
+  tags: string;
+  targetDate: Date | null;
+  tp1Date: Date | null;
+  tp2Date: Date | null;
+  tp3Date: Date | null;
+  trader?: User | null;
+  traderSetupPnlPerformance?: TraderSetupPnlPerformance | null;
+  updatedAt: Date | null;
+  updatedById: string | null;
+  userNotification?: Array<UserNotification>;
+  watchList?: Array<WatchList>;
+};

@@ -1,0 +1,98 @@
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { ClapListRelationFilter } from "../clap/ClapListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { CopyTradeOrderListRelationFilter } from "../copyTradeOrder/CopyTradeOrderListRelationFilter";
+import { CopyTradeListRelationFilter } from "../copyTrade/CopyTradeListRelationFilter";
+import { FloatFilter } from "../../util/FloatFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ReportListRelationFilter } from "../report/ReportListRelationFilter";
+import { SetupValueHistoryListRelationFilter } from "../setupValueHistory/SetupValueHistoryListRelationFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { TraderSetupPnlPerformanceWhereUniqueInput } from "../traderSetupPnlPerformance/TraderSetupPnlPerformanceWhereUniqueInput";
+import { UserNotificationListRelationFilter } from "../userNotification/UserNotificationListRelationFilter";
+import { WatchListListRelationFilter } from "../watchList/WatchListListRelationFilter";
+
+export type SetupWhereInput = {
+  activatedStopValue?: FloatNullableFilter;
+  activationDate?: DateTimeNullableFilter;
+  category?: "spot" | "futures";
+  clap?: ClapListRelationFilter;
+  clapCount?: IntNullableFilter;
+  closeDate?: DateTimeNullableFilter;
+  closePrice?: FloatNullableFilter;
+  closedById?: StringNullableFilter;
+  coinName?: StringFilter;
+  copyTradeOrder?: CopyTradeOrderListRelationFilter;
+  copyTrades?: CopyTradeListRelationFilter;
+  createdAt?: DateTimeNullableFilter;
+  createdById?: StringNullableFilter;
+  duration?: "shortterm" | "midterm" | "longterm";
+  entryValue?: FloatFilter;
+  entryValueEnd?: FloatNullableFilter;
+  id?: StringFilter;
+  image?: StringNullableFilter;
+  imageSuccess?: StringNullableFilter;
+  initialEntryValue?: FloatNullableFilter;
+  initialEntryValueEnd?: FloatNullableFilter;
+  initialProfitTaking1?: FloatNullableFilter;
+  initialProfitTaking2?: FloatNullableFilter;
+  initialProfitTaking3?: FloatNullableFilter;
+  initialProfitTakingAmount1?: FloatNullableFilter;
+  initialProfitTakingAmount2?: FloatNullableFilter;
+  initialProfitTakingAmount3?: FloatNullableFilter;
+  initialRr?: StringNullableFilter;
+  initialStopValue?: FloatNullableFilter;
+  isActive?: BooleanFilter;
+  isDeleted?: BooleanFilter;
+  isHidden?: BooleanFilter;
+  isStop?: BooleanNullableFilter;
+  isTargeted?: BooleanFilter;
+  isTp1?: BooleanNullableFilter;
+  isTp2?: BooleanNullableFilter;
+  isTp3?: BooleanNullableFilter;
+  position?: "long" | "short";
+  previousEntryValue?: FloatNullableFilter;
+  previousEntryValueEnd?: FloatNullableFilter;
+  previousProfitTaking1?: FloatNullableFilter;
+  previousProfitTaking2?: FloatNullableFilter;
+  previousProfitTaking3?: FloatNullableFilter;
+  previousProfitTakingAmount1?: FloatNullableFilter;
+  previousProfitTakingAmount2?: FloatNullableFilter;
+  previousProfitTakingAmount3?: FloatNullableFilter;
+  previousStopValue?: FloatNullableFilter;
+  profitTaking1?: FloatNullableFilter;
+  profitTaking2?: FloatNullableFilter;
+  profitTaking3?: FloatNullableFilter;
+  profitTakingAmount1?: IntNullableFilter;
+  profitTakingAmount2?: IntNullableFilter;
+  profitTakingAmount3?: IntNullableFilter;
+  rValue?: FloatNullableFilter;
+  report?: ReportListRelationFilter;
+  setupValueHistory?: SetupValueHistoryListRelationFilter;
+  status?:
+    | "incoming"
+    | "active"
+    | "cancelled"
+    | "stopped"
+    | "success"
+    | "closed";
+  stopDate?: DateTimeNullableFilter;
+  stopDistance?: FloatNullableFilter;
+  stopValue?: FloatNullableFilter;
+  subStatus?: StringNullableFilter;
+  tags?: StringFilter;
+  targetDate?: DateTimeNullableFilter;
+  tp1Date?: DateTimeNullableFilter;
+  tp2Date?: DateTimeNullableFilter;
+  tp3Date?: DateTimeNullableFilter;
+  trader?: UserWhereUniqueInput;
+  traderSetupPnlPerformance?: TraderSetupPnlPerformanceWhereUniqueInput;
+  updatedAt?: DateTimeNullableFilter;
+  updatedById?: StringNullableFilter;
+  userNotification?: UserNotificationListRelationFilter;
+  watchList?: WatchListListRelationFilter;
+};

@@ -1,0 +1,62 @@
+import * as React from "react";
+
+import {
+  List,
+  Datagrid,
+  ListProps,
+  TextField,
+  ReferenceField,
+  DateField,
+  BooleanField,
+} from "react-admin";
+
+import Pagination from "../Components/Pagination";
+import { COPYTRADE_TITLE_FIELD } from "../copyTrade/CopyTradeTitle";
+import { SETUP_TITLE_FIELD } from "../setup/SetupTitle";
+import { USER_TITLE_FIELD } from "../user/UserTitle";
+
+export const CopyTradeOrderList = (props: ListProps): React.ReactElement => {
+  return (
+    <List
+      {...props}
+      title={"CopyTradeOrders"}
+      perPage={50}
+      pagination={<Pagination />}
+    >
+      <Datagrid rowClick="show" bulkActionButtons={false}>
+        <TextField label="Act Px" source="actPx" />
+        <TextField label="Act Sz" source="actSz" />
+        <ReferenceField
+          label="Copy Trades"
+          source="copytrade.id"
+          reference="CopyTrade"
+        >
+          <TextField source={COPYTRADE_TITLE_FIELD} />
+        </ReferenceField>
+        <DateField source="createdAt" label="Created At" />
+        <TextField label="Created By Id" source="createdById" />
+        <TextField label="ID" source="id" />
+        <BooleanField label="Is Deleted" source="isDeleted" />
+        <TextField label="Percentage" source="percentage" />
+        <TextField label="Request Px" source="requestPx" />
+        <TextField label="Request Sz" source="requestSz" />
+        <TextField label="Requested At" source="requestedAt" />
+        <ReferenceField label="Setup" source="setup.id" reference="Setup">
+          <TextField source={SETUP_TITLE_FIELD} />
+        </ReferenceField>
+        <TextField label="Side" source="side" />
+        <TextField label="Status" source="status" />
+        <TextField label="Status At" source="statusAt" />
+        <TextField label="Status Message" source="statusMessage" />
+        <TextField label="Stop Loss Px" source="stopLossPx" />
+        <TextField label="Take Profit Px" source="takeProfitPx" />
+        <TextField label="Tp Value" source="tpValue" />
+        <TextField label="Updated At" source="updatedAt" />
+        <TextField label="Updated By Id" source="updatedById" />
+        <ReferenceField label="User" source="user.id" reference="User">
+          <TextField source={USER_TITLE_FIELD} />
+        </ReferenceField>{" "}
+      </Datagrid>
+    </List>
+  );
+};

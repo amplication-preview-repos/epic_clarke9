@@ -1,0 +1,35 @@
+import { SortOrder } from "../../util/SortOrder";
+
+export type CalendarOrderByInput = {
+  acroExpand?: SortOrder;
+  actual?: SortOrder;
+  alsoCalled?: SortOrder;
+  ccNotes?: SortOrder;
+  ccNotice?: SortOrder;
+  country?: SortOrder;
+  countryCode?: SortOrder;
+  createdAt?: SortOrder;
+  createdById?: SortOrder;
+  dataEcobaseid?: SortOrder;
+  dataEventId?: SortOrder;
+  date?: SortOrder;
+  derivedVia?: SortOrder;
+  description?: SortOrder;
+  eventDatetime?: SortOrder;
+  forecast?: SortOrder;
+  frequency?: SortOrder;
+  id?: SortOrder;
+  impact?: SortOrder;
+  isDeleted?: SortOrder;
+  measures?: SortOrder;
+  nextRelease?: SortOrder;
+  previous?: SortOrder;
+  source?: SortOrder;
+  speaker?: SortOrder;
+  time?: SortOrder;
+  title?: SortOrder;
+  updatedAt?: SortOrder;
+  updatedById?: SortOrder;
+  usualEffect?: SortOrder;
+  whyTraderscare?: SortOrder;
+};

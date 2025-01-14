@@ -1,0 +1,32 @@
+import { Product } from "../product/Product";
+import { SubscriptionPool } from "../subscriptionPool/SubscriptionPool";
+import { User } from "../user/User";
+import { TraderReferralEarning } from "../traderReferralEarning/TraderReferralEarning";
+
+export type UserSubscription = {
+  autoRenewProductCode: string | null;
+  autoRenewStatus: boolean;
+  createdAt: Date | null;
+  createdById: string | null;
+  currency: string | null;
+  data: string;
+  expireDate: Date;
+  id: string;
+  isCancelled: boolean;
+  isDeleted: boolean;
+  isExpired: boolean;
+  isPaymentReceived: boolean | null;
+  isTrial: boolean;
+  market: string;
+  price: number | null;
+  product?: Product | null;
+  rawData: string;
+  startDate: Date;
+  subscriptionPool?: Array<SubscriptionPool>;
+  trader?: User | null;
+  traderReferralEarning?: Array<TraderReferralEarning>;
+  transactionId: string;
+  updatedAt: Date | null;
+  updatedById: string | null;
+  user?: User;
+};
