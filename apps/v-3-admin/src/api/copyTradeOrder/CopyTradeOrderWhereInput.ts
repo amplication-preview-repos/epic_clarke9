@@ -1,0 +1,34 @@
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { CopyTradeWhereUniqueInput } from "../copyTrade/CopyTradeWhereUniqueInput";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { SetupWhereUniqueInput } from "../setup/SetupWhereUniqueInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+
+export type CopyTradeOrderWhereInput = {
+  actPx?: FloatNullableFilter;
+  actSz?: FloatNullableFilter;
+  copyTrades?: CopyTradeWhereUniqueInput;
+  createdAt?: DateTimeNullableFilter;
+  createdById?: StringNullableFilter;
+  id?: StringFilter;
+  isDeleted?: BooleanFilter;
+  percentage?: IntNullableFilter;
+  requestPx?: FloatNullableFilter;
+  requestSz?: FloatNullableFilter;
+  requestedAt?: DateTimeNullableFilter;
+  setup?: SetupWhereUniqueInput;
+  side?: StringFilter;
+  status?: StringFilter;
+  statusAt?: DateTimeNullableFilter;
+  statusMessage?: StringNullableFilter;
+  stopLossPx?: FloatNullableFilter;
+  takeProfitPx?: FloatNullableFilter;
+  tpValue?: StringFilter;
+  updatedAt?: DateTimeNullableFilter;
+  updatedById?: StringNullableFilter;
+  user?: UserWhereUniqueInput;
+};

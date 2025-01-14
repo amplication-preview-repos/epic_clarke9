@@ -1,0 +1,31 @@
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { CopyTradeOrderListRelationFilter } from "../copyTradeOrder/CopyTradeOrderListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { SetupWhereUniqueInput } from "../setup/SetupWhereUniqueInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+
+export type CopyTradeWhereInput = {
+  activatedAt?: DateTimeNullableFilter;
+  assetSize?: FloatNullableFilter;
+  copiedAt?: DateTimeNullableFilter;
+  copyTradeOrder?: CopyTradeOrderListRelationFilter;
+  createdAt?: DateTimeNullableFilter;
+  createdById?: StringNullableFilter;
+  errorMessage?: StringNullableFilter;
+  errorNo?: StringNullableFilter;
+  id?: StringFilter;
+  isDeleted?: BooleanFilter;
+  market?: StringNullableFilter;
+  realizedPnl?: FloatNullableFilter;
+  realizedR?: FloatNullableFilter;
+  setup?: SetupWhereUniqueInput;
+  state?: StringNullableFilter;
+  trader?: UserWhereUniqueInput;
+  updatedAt?: DateTimeNullableFilter;
+  updatedById?: StringNullableFilter;
+  usdSize?: FloatNullableFilter;
+  user?: UserWhereUniqueInput;
+};

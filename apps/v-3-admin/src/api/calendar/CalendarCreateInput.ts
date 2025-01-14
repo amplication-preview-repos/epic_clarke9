@@ -1,0 +1,34 @@
+import { CalendarTextCreateNestedManyWithoutCalendarsInput } from "./CalendarTextCreateNestedManyWithoutCalendarsInput";
+
+export type CalendarCreateInput = {
+  acroExpand?: string | null;
+  actual?: string | null;
+  alsoCalled?: string | null;
+  calendarText?: CalendarTextCreateNestedManyWithoutCalendarsInput;
+  ccNotes?: string | null;
+  ccNotice?: string | null;
+  country?: string | null;
+  countryCode?: string | null;
+  createdById?: string | null;
+  dataEcobaseid: number;
+  dataEventId: number;
+  date?: Date | null;
+  derivedVia?: string | null;
+  description?: string | null;
+  eventDatetime?: Date | null;
+  forecast?: string | null;
+  frequency?: string | null;
+  impact?: string | null;
+  isDeleted: boolean;
+  measures?: string | null;
+  nextRelease?: string | null;
+  previous?: string | null;
+  source?: string | null;
+  speaker?: string | null;
+  time?: string | null;
+  title?: string | null;
+  updatedAt?: Date | null;
+  updatedById?: string | null;
+  usualEffect?: string | null;
+  whyTraderscare?: string | null;
+};

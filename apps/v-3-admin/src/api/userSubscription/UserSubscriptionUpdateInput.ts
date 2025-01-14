@@ -1,0 +1,30 @@
+import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { SubscriptionPoolUpdateManyWithoutUserSubscriptionsInput } from "./SubscriptionPoolUpdateManyWithoutUserSubscriptionsInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { TraderReferralEarningUpdateManyWithoutUserSubscriptionsInput } from "./TraderReferralEarningUpdateManyWithoutUserSubscriptionsInput";
+
+export type UserSubscriptionUpdateInput = {
+  autoRenewProductCode?: string | null;
+  autoRenewStatus?: boolean;
+  createdById?: string | null;
+  currency?: string | null;
+  data?: string;
+  expireDate?: Date;
+  isCancelled?: boolean;
+  isDeleted?: boolean;
+  isExpired?: boolean;
+  isPaymentReceived?: boolean | null;
+  isTrial?: boolean;
+  market?: string;
+  price?: number | null;
+  product?: ProductWhereUniqueInput | null;
+  rawData?: string;
+  startDate?: Date;
+  subscriptionPool?: SubscriptionPoolUpdateManyWithoutUserSubscriptionsInput;
+  trader?: UserWhereUniqueInput | null;
+  traderReferralEarning?: TraderReferralEarningUpdateManyWithoutUserSubscriptionsInput;
+  transactionId?: string;
+  updatedAt?: Date | null;
+  updatedById?: string | null;
+  user?: UserWhereUniqueInput;
+};

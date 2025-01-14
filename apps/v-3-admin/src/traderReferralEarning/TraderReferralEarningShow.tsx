@@ -1,0 +1,51 @@
+import * as React from "react";
+
+import {
+  Show,
+  SimpleShowLayout,
+  ShowProps,
+  TextField,
+  DateField,
+  BooleanField,
+  ReferenceField,
+} from "react-admin";
+
+import { USER_TITLE_FIELD } from "../user/UserTitle";
+import { USERSUBSCRIPTION_TITLE_FIELD } from "../userSubscription/UserSubscriptionTitle";
+
+export const TraderReferralEarningShow = (
+  props: ShowProps
+): React.ReactElement => {
+  return (
+    <Show {...props}>
+      <SimpleShowLayout>
+        <TextField label="Amount" source="amount" />
+        <TextField label="Cancellation Date" source="cancellationDate" />
+        <DateField source="createdAt" label="Created At" />
+        <TextField label="Created By Id" source="createdById" />
+        <TextField label="ID" source="id" />
+        <TextField label="Installment" source="installment" />
+        <TextField label="Installments" source="installments" />
+        <BooleanField label="Is Cancelled" source="isCancelled" />
+        <BooleanField label="Is Deleted" source="isDeleted" />
+        <BooleanField label="Is Paid" source="isPaid" />
+        <BooleanField label="Is Withdrawal" source="isWithdrawal" />
+        <TextField label="Paid Date" source="paidDate" />
+        <TextField label="Trader Earn Date" source="traderEarnDate" />
+        <TextField label="Updated At" source="updatedAt" />
+        <TextField label="Updated By Id" source="updatedById" />
+        <ReferenceField label="User" source="user.id" reference="User">
+          <TextField source={USER_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="User Subscription"
+          source="usersubscription.id"
+          reference="UserSubscription"
+        >
+          <TextField source={USERSUBSCRIPTION_TITLE_FIELD} />
+        </ReferenceField>
+        <TextField label="Withdrawal Date" source="withdrawalDate" />
+      </SimpleShowLayout>
+    </Show>
+  );
+};

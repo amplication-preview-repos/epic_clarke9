@@ -6,3 +6,962 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Ad {
+  adsGroupId  String    @map("ads_group_id") @db.VarChar
+  adsId       String    @map("ads_id") @db.VarChar
+  campaign    String?   @map("campaign") @db.VarChar
+  company     String?   @map("company") @db.VarChar
+  content     String?   @map("content") @db.VarChar
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  endDate     DateTime  @map("end_date") @db.Timestamp(6)
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  image       String?   @map("image") @db.VarChar
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  lang        String    @default("en") @map("lang") @db.VarChar
+  pages       String?   @map("pages") @db.VarChar
+  sortNo      Int?      @default(0) @map("sort_no")
+  startDate   DateTime  @map("start_date") @db.Timestamp(6)
+  title       String?   @map("title") @db.VarChar
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  url         String?   @map("url") @db.VarChar
+  video       String?   @map("video") @db.VarChar
+
+  @@index([adsGroupId], map: "ix_ads_ads_group_id")
+  @@index([adsId], map: "ix_ads_ads_id")
+  @@index([createdAt], map: "ix_ads_created_at")
+  @@index([createdById], map: "ix_ads_created_by_id")
+  @@index([endDate], map: "ix_ads_end_date")
+  @@index([isDeleted], map: "ix_ads_is_deleted")
+  @@index([lang], map: "ix_ads_lang")
+  @@index([startDate], map: "ix_ads_start_date")
+  @@index([updatedById], map: "ix_ads_updated_by_id")
+  @@map("ads")
+}
+
+model AppStoreProductPrice {
+  activatedAt DateTime @map("activated_at") @db.Timestamp(6)
+  countryCode String   @map("country_code") @db.VarChar
+  currency    String   @map("currency") @db.VarChar
+  id          String   @id @default(uuid()) @map("id") @db.Uuid
+  price       Float    @map("price")
+  productCode String   @map("product_code") @db.VarChar
+
+  @@unique([productCode, countryCode, activatedAt])
+  @@index([activatedAt], map: "ix_app_store_product_price_activated_at")
+  @@index([countryCode], map: "ix_app_store_product_price_country_code")
+  @@index([productCode], map: "ix_app_store_product_price_product_code")
+  @@map("app_store_product_price")
+}
+
+model Calendar {
+  acroExpand     String?        @map("acro_expand") @db.VarChar
+  actual         String?        @map("actual") @db.VarChar
+  alsoCalled     String?        @map("also_called") @db.VarChar
+  calendarText   CalendarText[]
+  ccNotes        String?        @map("cc_notes") @db.VarChar
+  ccNotice       String?        @map("cc_notice") @db.VarChar
+  country        String?        @map("country") @db.VarChar
+  countryCode    String?        @map("country_code") @db.VarChar
+  createdAt      DateTime?      @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById    String?        @map("created_by_id") @db.Uuid
+  dataEcobaseid  Int            @map("data_ecobaseid")
+  dataEventId    Int            @map("data_event_id")
+  date           DateTime?      @map("date") @db.Date
+  derivedVia     String?        @map("derived_via") @db.VarChar
+  description    String?        @map("description") @db.VarChar
+  eventDatetime  DateTime?      @map("event_datetime") @db.Timestamp(6)
+  forecast       String?        @map("forecast") @db.VarChar
+  frequency      String?        @map("frequency") @db.VarChar
+  id             String         @id @default(uuid()) @map("id") @db.Uuid
+  impact         String?        @map("impact") @db.VarChar
+  isDeleted      Boolean        @default(false) @map("is_deleted")
+  measures       String?        @map("measures") @db.VarChar
+  nextRelease    String?        @map("next_release") @db.VarChar
+  previous       String?        @map("previous") @db.VarChar
+  source         String?        @map("source") @db.VarChar
+  speaker        String?        @map("speaker") @db.VarChar
+  time           String?        @map("time") @db.VarChar
+  title          String?        @map("title") @db.VarChar
+  updatedAt      DateTime?      @map("updated_at") @db.Timestamp(6)
+  updatedById    String?        @map("updated_by_id") @db.Uuid
+  usualEffect    String?        @map("usual_effect") @db.VarChar
+  whyTraderscare String?        @map("why_traderscare") @db.VarChar
+
+  @@index([createdAt], map: "ix_calendar_created_at")
+  @@index([createdById], map: "ix_calendar_created_by_id")
+  @@index([isDeleted], map: "ix_calendar_is_deleted")
+  @@index([updatedById], map: "ix_calendar_updated_by_id")
+  @@map("calendar")
+}
+
+model CalendarText {
+  acroExpand     String?  @map("acro_expand") @db.VarChar
+  alsoCalled     String?  @map("also_called") @db.VarChar
+  calendar       Calendar @relation(fields: [calendarId], references: [id])
+  calendarId     String
+  ccNotes        String?  @map("cc_notes") @db.VarChar
+  ccNotice       String?  @map("cc_notice") @db.VarChar
+  country        String?  @map("country") @db.VarChar
+  derivedVia     String?  @map("derived_via") @db.VarChar
+  description    String?  @map("description") @db.VarChar
+  frequency      String?  @map("frequency") @db.VarChar
+  id             String   @id @default(uuid()) @map("id") @db.Uuid
+  language       String   @default("en") @map("language") @db.VarChar
+  measures       String?  @map("measures") @db.VarChar
+  source         String?  @map("source") @db.VarChar
+  speaker        String?  @map("speaker") @db.VarChar
+  title          String?  @map("title") @db.VarChar
+  usualEffect    String?  @map("usual_effect") @db.VarChar
+  whyTraderscare String?  @map("why_traderscare") @db.VarChar
+
+  @@unique([calendarId, language])
+  @@map("calendar_text")
+}
+
+model CanUpdate {
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  language    String    @default("en") @map("language") @db.VarChar
+  title       String?   @map("title") @db.VarChar
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_can_update_created_at")
+  @@index([createdById], map: "ix_can_update_created_by_id")
+  @@index([isDeleted], map: "ix_can_update_is_deleted")
+  @@index([updatedById], map: "ix_can_update_updated_by_id")
+  @@map("can_update")
+}
+
+model Clap {
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  setup       Setup?    @relation(fields: [setupId], references: [id])
+  setupId     String?
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([userId, setupId])
+  @@index([createdAt], map: "ix_clap_created_at")
+  @@index([createdById], map: "ix_clap_created_by_id")
+  @@index([isDeleted], map: "ix_clap_is_deleted")
+  @@index([updatedById], map: "ix_clap_updated_by_id")
+  @@map("clap")
+}
+
+model Coin {
+  code        String    @unique @map("code") @db.VarChar
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  image       String?   @map("image") @db.VarChar
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  isFutures   Boolean   @default(true) @map("is_futures")
+  isSpot      Boolean   @default(true) @map("is_spot")
+  name        String    @map("name") @db.VarChar
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_coin_created_at")
+  @@index([createdById], map: "ix_coin_created_by_id")
+  @@index([isDeleted], map: "ix_coin_is_deleted")
+  @@index([isFutures], map: "ix_coin_is_futures")
+  @@index([isSpot], map: "ix_coin_is_spot")
+  @@index([name], map: "ix_coin_name")
+  @@index([updatedById], map: "ix_coin_updated_by_id")
+  @@map("coin")
+}
+
+model CopyTradeOrder {
+  actPx         Float?     @map("act_px")
+  actSz         Float?     @map("act_sz")
+  copyTrades    CopyTrade? @relation(fields: [copyTradeId], references: [id])
+  copyTradeId   String?
+  createdAt     DateTime?  @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById   String?    @map("created_by_id") @db.Uuid
+  id            String     @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted     Boolean    @default(false) @map("is_deleted")
+  percentage    Int?       @map("percentage")
+  requestPx     Float?     @map("request_px")
+  requestSz     Float?     @map("request_sz")
+  requestedAt   DateTime?  @map("requested_at") @db.Timestamp(6)
+  setup         Setup?     @relation(fields: [setupId], references: [id])
+  setupId       String?
+  side          String     @map("side") @db.VarChar(4)
+  status        String     @map("status") @db.VarChar(20)
+  statusAt      DateTime?  @map("status_at") @db.Timestamp(6)
+  statusMessage String?    @map("status_message") @db.VarChar
+  stopLossPx    Float?     @map("stop_loss_px")
+  takeProfitPx  Float?     @map("take_profit_px")
+  tpValue       String     @map("tp_value") @db.VarChar(3)
+  updatedAt     DateTime?  @map("updated_at") @db.Timestamp(6)
+  updatedById   String?    @map("updated_by_id") @db.Uuid
+  user          User?      @relation(fields: [userId], references: [id])
+  userId        String?
+
+  @@unique([userId, setupId, side, tpValue])
+  @@index([createdAt], map: "ix_copy_trade_order_created_at")
+  @@index([createdById], map: "ix_copy_trade_order_created_by_id")
+  @@index([isDeleted], map: "ix_copy_trade_order_is_deleted")
+  @@index([side], map: "ix_copy_trade_order_side")
+  @@index([status], map: "ix_copy_trade_order_status")
+  @@index([tpValue], map: "ix_copy_trade_order_tp_value")
+  @@index([updatedById], map: "ix_copy_trade_order_updated_by_id")
+  @@map("copy_trade_order")
+}
+
+model CopyTrade {
+  activatedAt    DateTime?        @map("activated_at") @db.Timestamp(6)
+  assetSize      Float?           @map("asset_size")
+  copiedAt       DateTime?        @map("copied_at") @db.Timestamp(6)
+  copyTradeOrder CopyTradeOrder[]
+  createdAt      DateTime?        @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById    String?          @map("created_by_id") @db.Uuid
+  errorMessage   String?          @map("error_message") @db.VarChar
+  errorNo        String?          @map("error_no") @db.VarChar
+  id             String           @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted      Boolean          @default(false) @map("is_deleted")
+  market         String?          @map("market") @db.VarChar
+  realizedPnl    Float?           @map("realized_pnl")
+  realizedR      Float?           @map("realized_r")
+  setup          Setup?           @relation(fields: [setupId], references: [id])
+  setupId        String?
+  state          String?          @map("state") @db.VarChar
+  trader         User?            @relation(name: "copyTradesCopyTradesTraderIdTouser", fields: [traderId], references: [id])
+  traderId       String?
+  updatedAt      DateTime?        @map("updated_at") @db.Timestamp(6)
+  updatedById    String?          @map("updated_by_id") @db.Uuid
+  usdSize        Float?           @map("usd_size")
+  user           User?            @relation(name: "copyTradesCopyTradesUserIdTouser", fields: [userId], references: [id])
+  userId         String?
+
+  @@unique([userId, setupId])
+  @@index([createdAt], map: "ix_copy_trades_created_at")
+  @@index([createdById], map: "ix_copy_trades_created_by_id")
+  @@index([isDeleted], map: "ix_copy_trades_is_deleted")
+  @@index([market], map: "ix_copy_trades_market")
+  @@index([state], map: "ix_copy_trades_state")
+  @@index([updatedById], map: "ix_copy_trades_updated_by_id")
+  @@map("copy_trades")
+}
+
+model FollowNotify {
+  block       Boolean   @default(false) @map("block")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  follow      Boolean   @default(false) @map("follow")
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  notify      Boolean   @default(false) @map("notify")
+  trader      User?     @relation(name: "followNotifyFollowNotifyTraderIdTouser", fields: [traderId], references: [id])
+  traderId    String?
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  user        User?     @relation(name: "followNotifyFollowNotifyUserIdTouser", fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([userId, traderId])
+  @@index([block], map: "ix_follow_notify_block")
+  @@index([createdAt], map: "ix_follow_notify_created_at")
+  @@index([createdById], map: "ix_follow_notify_created_by_id")
+  @@index([follow], map: "ix_follow_notify_follow")
+  @@index([isDeleted], map: "ix_follow_notify_is_deleted")
+  @@index([notify], map: "ix_follow_notify_notify")
+  @@index([updatedById], map: "ix_follow_notify_updated_by_id")
+  @@map("follow_notify")
+}
+
+model Invitee {
+  activatedAt DateTime? @map("activated_at") @db.Timestamp(6)
+  id          String    @id @default(uuid()) @db.Uuid
+  market      String?   @db.VarChar
+  uid         String?   @db.VarChar
+
+  @@unique([uid, market])
+  @@index([market], map: "ix_invitees_market")
+  @@index([uid], map: "ix_invitees_uid")
+  @@map("invitees")
+}
+
+model News {
+  createdAt    DateTime?  @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById  String?    @map("created_by_id") @db.Uuid
+  date         DateTime?  @map("date") @db.Timestamp(6)
+  fullText     String?    @map("full_text")
+  id           String     @id @default(uuid()) @map("id") @db.Uuid
+  imageURL     String?    @map("image_url") @db.VarChar
+  isDeleted    Boolean    @default(false) @map("is_deleted")
+  newsText     NewsText[]
+  newsURL      String?    @map("news_url") @db.VarChar
+  sentiment    String?    @map("sentiment") @db.VarChar
+  sourceName   String?    @map("source_name") @db.VarChar
+  text         String?    @map("text") @db.VarChar
+  thumbnailURL String?    @map("thumbnail_url") @db.VarChar
+  tickers      String     @map("tickers") @db.VarChar
+  title        String?    @map("title") @db.VarChar
+  topics       String     @map("topics") @db.VarChar
+  typeField    String?    @map("type") @db.VarChar
+  updatedAt    DateTime?  @map("updated_at") @db.Timestamp(6)
+  updatedById  String?    @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_news_created_at")
+  @@index([createdById], map: "ix_news_created_by_id")
+  @@index([isDeleted], map: "ix_news_is_deleted")
+  @@index([updatedById], map: "ix_news_updated_by_id")
+  @@map("news")
+}
+
+model NewsText {
+  fullText String? @map("full_text")
+  id       String  @id @default(uuid()) @map("id") @db.Uuid
+  language String  @default("en") @map("language") @db.VarChar
+  news     News    @relation(fields: [newsId], references: [id])
+  newsId   String
+  text     String? @map("text") @db.VarChar
+  title    String? @map("title") @db.VarChar
+
+  @@unique([newsId, language])
+  @@map("news_text")
+}
+
+model Product {
+  code                   String             @unique @map("code") @db.VarChar
+  createdAt              DateTime?          @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById            String?            @map("created_by_id") @db.Uuid
+  discountedPrice        Float?             @map("discounted_price")
+  duration               Int?               @map("duration")
+  grossRevenue           Float?             @map("gross_revenue")
+  id                     String             @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted              Boolean            @default(false) @map("is_deleted")
+  name                   String             @map("name") @db.VarChar
+  poolMoney              Float?             @map("pool_money")
+  price                  Float?             @map("price")
+  referralDiscount       Float?             @map("referral_discount")
+  traderPoolRatio        Float?             @map("trader_pool_ratio")
+  traderReferralEarnings Float?             @map("trader_referral_earnings")
+  traderShareRatio       Float?             @map("trader_share_ratio")
+  updatedAt              DateTime?          @map("updated_at") @db.Timestamp(6)
+  updatedById            String?            @map("updated_by_id") @db.Uuid
+  userSubscription       UserSubscription[]
+
+  @@index([createdAt], map: "ix_product_created_at")
+  @@index([createdById], map: "ix_product_created_by_id")
+  @@index([isDeleted], map: "ix_product_is_deleted")
+  @@index([name], map: "ix_product_name")
+  @@index([updatedById], map: "ix_product_updated_by_id")
+  @@map("product")
+}
+
+model ReferralCode {
+  code        String    @unique @map("code") @db.VarChar
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isActive    Boolean   @default(false) @map("is_active")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  referrals   User[]    @relation(name: "referralCodeUserReferralCodeIdToreferralCode")
+  trader      User?     @relation(name: "referralCodeReferralCodeTraderIdTouser", fields: [traderId], references: [id])
+  traderId    String?
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_referral_code_created_at")
+  @@index([createdById], map: "ix_referral_code_created_by_id")
+  @@index([isDeleted], map: "ix_referral_code_is_deleted")
+  @@index([updatedById], map: "ix_referral_code_updated_by_id")
+  @@map("referral_code")
+}
+
+model Report {
+  content     String    @map("content")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  setup       Setup?    @relation(fields: [setupId], references: [id])
+  setupId     String?
+  trader      User?     @relation(name: "reportReportTraderIdTouser", fields: [traderId], references: [id])
+  traderId    String?
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  user        User?     @relation(name: "reportReportUserIdTouser", fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([userId, setupId])
+  @@unique([userId, traderId])
+  @@index([createdAt], map: "ix_report_created_at")
+  @@index([createdById], map: "ix_report_created_by_id")
+  @@index([isDeleted], map: "ix_report_is_deleted")
+  @@index([updatedById], map: "ix_report_updated_by_id")
+  @@map("report")
+}
+
+model ServerNotificationMessage {
+  createdAt        DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById      String?   @map("created_by_id") @db.Uuid
+  id               String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted        Boolean   @default(false) @map("is_deleted")
+  message          String?   @map("message")
+  messageJson      String?   @map("message_json")
+  notificationId   String?   @map("notification_id") @db.VarChar
+  notificationType String?   @map("notification_type") @db.VarChar
+  provider         String?   @map("provider") @db.VarChar
+  transactionId    String?   @map("transaction_id") @db.VarChar
+  updatedAt        DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById      String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_server_notification_messages_created_at")
+  @@index([createdById], map: "ix_server_notification_messages_created_by_id")
+  @@index([isDeleted], map: "ix_server_notification_messages_is_deleted")
+  @@index([notificationId], map: "ix_server_notification_messages_notification_id")
+  @@index([transactionId], map: "ix_server_notification_messages_transaction_id")
+  @@index([updatedById], map: "ix_server_notification_messages_updated_by_id")
+  @@map("server_notification_messages")
+}
+
+model Setup {
+  activatedStopValue          Float?                     @map("activated_stop_value")
+  activationDate              DateTime?                  @map("activation_date") @db.Timestamp(6)
+  category                    EnumSetupCategory          @map("category")
+  clap                        Clap[]
+  clapCount                   Int?                       @map("clap_count")
+  closeDate                   DateTime?                  @map("close_date") @db.Timestamp(6)
+  closePrice                  Float?                     @map("close_price")
+  closedById                  String?                    @map("closed_by_id") @db.Uuid
+  coinName                    String                     @map("coin_name") @db.VarChar
+  copyTradeOrder              CopyTradeOrder[]
+  copyTrades                  CopyTrade[]
+  createdAt                   DateTime?                  @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById                 String?                    @map("created_by_id") @db.Uuid
+  duration                    EnumSetupDuration?         @map("duration")
+  entryValue                  Float                      @map("entry_value")
+  entryValueEnd               Float?                     @map("entry_value_end")
+  id                          String                     @id @default(uuid()) @map("id") @db.Uuid
+  image                       String?                    @map("image") @db.VarChar
+  imageSuccess                String?                    @map("image_success") @db.VarChar
+  initialEntryValue           Float?                     @map("initial_entry_value")
+  initialEntryValueEnd        Float?                     @map("initial_entry_value_end")
+  initialProfitTaking1        Float?                     @map("initial_profit_taking_1")
+  initialProfitTaking2        Float?                     @map("initial_profit_taking_2")
+  initialProfitTaking3        Float?                     @map("initial_profit_taking_3")
+  initialProfitTakingAmount1  Float?                     @map("initial_profit_taking_amount_1")
+  initialProfitTakingAmount2  Float?                     @map("initial_profit_taking_amount_2")
+  initialProfitTakingAmount3  Float?                     @map("initial_profit_taking_amount_3")
+  initialRr                   String?                    @map("initial_rr") @db.VarChar
+  initialStopValue            Float?                     @map("initial_stop_value")
+  isActive                    Boolean                    @default(true) @map("is_active")
+  isDeleted                   Boolean                    @default(false) @map("is_deleted")
+  isHidden                    Boolean                    @default(true) @map("is_hidden")
+  isStop                      Boolean?                   @default(false) @map("is_stop")
+  isTargeted                  Boolean                    @default(false) @map("is_targeted")
+  isTp1                       Boolean?                   @default(false) @map("is_tp1")
+  isTp2                       Boolean?                   @default(false) @map("is_tp2")
+  isTp3                       Boolean?                   @default(false) @map("is_tp3")
+  position                    EnumSetupPosition?         @map("position")
+  previousEntryValue          Float?                     @map("previous_entry_value")
+  previousEntryValueEnd       Float?                     @map("previous_entry_value_end")
+  previousProfitTaking1       Float?                     @map("previous_profit_taking_1")
+  previousProfitTaking2       Float?                     @map("previous_profit_taking_2")
+  previousProfitTaking3       Float?                     @map("previous_profit_taking_3")
+  previousProfitTakingAmount1 Float?                     @map("previous_profit_taking_amount_1")
+  previousProfitTakingAmount2 Float?                     @map("previous_profit_taking_amount_2")
+  previousProfitTakingAmount3 Float?                     @map("previous_profit_taking_amount_3")
+  previousStopValue           Float?                     @map("previous_stop_value")
+  profitTaking1               Float?                     @map("profit_taking_1")
+  profitTaking2               Float?                     @map("profit_taking_2")
+  profitTaking3               Float?                     @map("profit_taking_3")
+  profitTakingAmount1         Int?                       @map("profit_taking_amount_1")
+  profitTakingAmount2         Int?                       @map("profit_taking_amount_2")
+  profitTakingAmount3         Int?                       @map("profit_taking_amount_3")
+  rValue                      Float?                     @map("r_value")
+  report                      Report[]
+  setupValueHistory           SetupValueHistory[]
+  status                      EnumSetupStatus            @map("status")
+  stopDate                    DateTime?                  @map("stop_date") @db.Timestamp(6)
+  stopDistance                Float?                     @map("stop_distance")
+  stopValue                   Float?                     @map("stop_value")
+  subStatus                   String?                    @map("sub_status") @db.VarChar
+  tags                        String                     @map("tags") @db.VarChar
+  targetDate                  DateTime?                  @map("target_date") @db.Timestamp(6)
+  tp1Date                     DateTime?                  @map("tp1_date") @db.Timestamp(6)
+  tp2Date                     DateTime?                  @map("tp2_date") @db.Timestamp(6)
+  tp3Date                     DateTime?                  @map("tp3_date") @db.Timestamp(6)
+  trader                      User?                      @relation(fields: [traderId], references: [id])
+  traderId                    String?
+  traderSetupPnlPerformance   TraderSetupPnlPerformance?
+  updatedAt                   DateTime?                  @map("updated_at") @db.Timestamp(6)
+  updatedById                 String?                    @map("updated_by_id") @db.Uuid
+  userNotification            UserNotification[]
+  watchList                   WatchList[]
+
+  @@index([category], map: "ix_setup_category")
+  @@index([closedById], map: "ix_setup_closed_by_id")
+  @@index([coinName], map: "ix_setup_coin_name")
+  @@index([createdAt], map: "ix_setup_created_at")
+  @@index([createdById], map: "ix_setup_created_by_id")
+  @@index([isActive], map: "ix_setup_is_active")
+  @@index([isDeleted], map: "ix_setup_is_deleted")
+  @@index([status], map: "ix_setup_status")
+  @@index([tags], map: "ix_setup_tags")
+  @@index([updatedById], map: "ix_setup_updated_by_id")
+  @@map("setup")
+}
+
+model SetupValueHistory {
+  createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  fieldField String    @map("field") @db.VarChar
+  id         String    @id @default(uuid()) @map("id") @db.Uuid
+  setup      Setup?    @relation(fields: [setupId], references: [id])
+  setupId    String?
+  value      Float?    @map("value")
+
+  @@index([createdAt], map: "ix_setup_value_history_created_at")
+  @@index([fieldField], map: "ix_setup_value_history_field")
+  @@index([setupId, fieldField], map: "ix_setup_value_history_setup_id_field")
+  @@map("setup_value_history")
+}
+
+model SubscriptionPool {
+  amount           Float?            @map("amount")
+  cancellationDate DateTime?         @map("cancellation_date") @db.Timestamp(6)
+  createdAt        DateTime?         @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById      String?           @map("created_by_id") @db.Uuid
+  id               String            @id @default(uuid()) @map("id") @db.Uuid
+  isCancelled      Boolean           @map("is_cancelled")
+  isDeleted        Boolean           @default(false) @map("is_deleted")
+  isPaid           Boolean           @map("is_paid")
+  isWithdrawal     Boolean           @map("is_withdrawal")
+  paidDate         DateTime?         @map("paid_date") @db.Timestamp(6)
+  traderEarnDate   DateTime?         @map("trader_earn_date") @db.Timestamp(6)
+  updatedAt        DateTime?         @map("updated_at") @db.Timestamp(6)
+  updatedById      String?           @map("updated_by_id") @db.Uuid
+  userSubscription UserSubscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId   String?
+  withdrawalDate   DateTime?         @map("withdrawal_date") @db.Timestamp(6)
+
+  @@index([cancellationDate], map: "ix_subscription_pool_cancellation_date")
+  @@index([createdAt], map: "ix_subscription_pool_created_at")
+  @@index([createdById], map: "ix_subscription_pool_created_by_id")
+  @@index([isCancelled], map: "ix_subscription_pool_is_cancelled")
+  @@index([isDeleted], map: "ix_subscription_pool_is_deleted")
+  @@index([isPaid], map: "ix_subscription_pool_is_paid")
+  @@index([isWithdrawal], map: "ix_subscription_pool_is_withdrawal")
+  @@index([paidDate], map: "ix_subscription_pool_paid_date")
+  @@index([updatedById], map: "ix_subscription_pool_updated_by_id")
+  @@index([withdrawalDate], map: "ix_subscription_pool_withdrawal_date")
+  @@map("subscription_pool")
+}
+
+model TeamTrader {
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  teams       Team      @relation(fields: [teamId], references: [id])
+  teamId      String
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  user        User      @relation(fields: [traderId], references: [id])
+  traderId    String
+
+  @@unique([teamId, traderId])
+  @@index([createdAt], map: "ix_team_traders_created_at")
+  @@index([createdById], map: "ix_team_traders_created_by_id")
+  @@index([isDeleted], map: "ix_team_traders_is_deleted")
+  @@index([updatedById], map: "ix_team_traders_updated_by_id")
+  @@map("team_traders")
+}
+
+model Team {
+  closed            Int?         @map("closed")
+  dailyClosed       Int?         @map("daily_closed")
+  dailyPnl          Float?       @map("daily_pnl")
+  dailyRoe          Float?       @map("daily_roe")
+  dailyWr           Float?       @map("daily_wr")
+  id                String       @id @default(uuid()) @map("id") @db.Uuid
+  monthlyClosed     Int?         @map("monthly_closed")
+  monthlyPnl        Float?       @map("monthly_pnl")
+  monthlyRoe        Float?       @map("monthly_roe")
+  monthlyWr         Float?       @map("monthly_wr")
+  name              String?      @map("name") @db.VarChar
+  pnl               Float?       @map("pnl")
+  roe               Float?       @map("roe")
+  spotClosed        Int?         @map("spot_closed")
+  spotDailyClosed   Int?         @map("spot_daily_closed")
+  spotDailyPnl      Float?       @map("spot_daily_pnl")
+  spotDailyRoe      Float?       @map("spot_daily_roe")
+  spotDailyWr       Float?       @map("spot_daily_wr")
+  spotMonthlyClosed Int?         @map("spot_monthly_closed")
+  spotMonthlyPnl    Float?       @map("spot_monthly_pnl")
+  spotMonthlyRoe    Float?       @map("spot_monthly_roe")
+  spotMonthlyWr     Float?       @map("spot_monthly_wr")
+  spotPnl           Float?       @map("spot_pnl")
+  spotRoe           Float?       @map("spot_roe")
+  spotWeeklyClosed  Int?         @map("spot_weekly_closed")
+  spotWeeklyPnl     Float?       @map("spot_weekly_pnl")
+  spotWeeklyRoe     Float?       @map("spot_weekly_roe")
+  spotWeeklyWr      Float?       @map("spot_weekly_wr")
+  spotWr            Float?       @map("spot_wr")
+  statAt            DateTime?    @map("stat_at") @db.Timestamp(6)
+  summaryDailyRoe   Float?       @map("summary_daily_roe")
+  summaryDailyWr    Float?       @map("summary_daily_wr")
+  summaryMonthlyRoe Float?       @map("summary_monthly_roe")
+  summaryMonthlyWr  Float?       @map("summary_monthly_wr")
+  summaryRoe        Float?       @map("summary_roe")
+  summaryWeeklyRoe  Float?       @map("summary_weekly_roe")
+  summaryWeeklyWr   Float?       @map("summary_weekly_wr")
+  summaryWr         Float?       @map("summary_wr")
+  teamTraders       TeamTrader[]
+  user              User         @relation(fields: [userId], references: [id])
+  userId            String       @unique
+  weeklyClosed      Int?         @map("weekly_closed")
+  weeklyPnl         Float?       @map("weekly_pnl")
+  weeklyRoe         Float?       @map("weekly_roe")
+  weeklyWr          Float?       @map("weekly_wr")
+  wr                Float?       @map("wr")
+
+  @@index([statAt], map: "ix_teams_stat_at")
+  @@map("teams")
+}
+
+model TraderProfile {
+  content     String?   @map("content")
+  coverImage  String?   @map("cover_image") @db.VarChar
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  links       Json?     @map("links") @db.Json
+  trader      User      @relation(fields: [traderId], references: [id])
+  traderId    String    @unique
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_trader_profile_created_at")
+  @@index([createdById], map: "ix_trader_profile_created_by_id")
+  @@index([isDeleted], map: "ix_trader_profile_is_deleted")
+  @@index([updatedById], map: "ix_trader_profile_updated_by_id")
+  @@map("trader_profile")
+}
+
+model TraderReferralEarning {
+  amount           Float?            @map("amount")
+  cancellationDate DateTime?         @map("cancellation_date") @db.Timestamp(6)
+  createdAt        DateTime?         @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById      String?           @map("created_by_id") @db.Uuid
+  id               String            @id @default(uuid()) @map("id") @db.Uuid
+  installment      Int               @default(1) @map("installment")
+  installments     Int               @default(1) @map("installments")
+  isCancelled      Boolean           @map("is_cancelled")
+  isDeleted        Boolean           @default(false) @map("is_deleted")
+  isPaid           Boolean           @map("is_paid")
+  isWithdrawal     Boolean           @map("is_withdrawal")
+  paidDate         DateTime?         @map("paid_date") @db.Timestamp(6)
+  traderEarnDate   DateTime          @map("trader_earn_date") @db.Timestamp(6)
+  updatedAt        DateTime?         @map("updated_at") @db.Timestamp(6)
+  updatedById      String?           @map("updated_by_id") @db.Uuid
+  user             User?             @relation(fields: [traderId], references: [id])
+  traderId         String?
+  userSubscription UserSubscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId   String?
+  withdrawalDate   DateTime?         @map("withdrawal_date") @db.Timestamp(6)
+
+  @@unique([subscriptionId, traderEarnDate])
+  @@index([cancellationDate], map: "ix_trader_referral_earning_cancellation_date")
+  @@index([createdAt], map: "ix_trader_referral_earning_created_at")
+  @@index([createdById], map: "ix_trader_referral_earning_created_by_id")
+  @@index([isCancelled], map: "ix_trader_referral_earning_is_cancelled")
+  @@index([isDeleted], map: "ix_trader_referral_earning_is_deleted")
+  @@index([isPaid], map: "ix_trader_referral_earning_is_paid")
+  @@index([isWithdrawal], map: "ix_trader_referral_earning_is_withdrawal")
+  @@index([paidDate], map: "ix_trader_referral_earning_paid_date")
+  @@index([updatedById], map: "ix_trader_referral_earning_updated_by_id")
+  @@index([withdrawalDate], map: "ix_trader_referral_earning_withdrawal_date")
+  @@map("trader_referral_earning")
+}
+
+model TraderSetupPnlPerformance {
+  createdAt        DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  estimatedPnl     Float?    @map("estimated_pnl")
+  estimatedPnlRate Float?    @map("estimated_pnl_rate")
+  feeRate          Float?    @map("fee_rate")
+  id               String    @id @default(uuid()) @map("id") @db.Uuid
+  pnl              Float?    @map("pnl")
+  pnlRate          Float?    @map("pnl_rate")
+  rR               Float?    @map("r_r")
+  setup            Setup     @relation(fields: [setupId], references: [id])
+  setupId          String    @unique
+  trader           User?     @relation(fields: [traderId], references: [id])
+  traderId         String?
+  updatedAt        DateTime? @map("updated_at") @db.Timestamp(6)
+
+  @@index([createdAt], map: "ix_trader_setup_pnl_performance_created_at")
+  @@index([updatedAt], map: "ix_trader_setup_pnl_performance_updated_at")
+  @@map("trader_setup_pnl_performance")
+}
+
+model TraderStat {
+  id             String    @id @default(uuid()) @map("id") @db.Uuid
+  monthlyPnl     Float?    @map("monthly_pnl")
+  monthlyPnlRate Float?    @map("monthly_pnl_rate")
+  monthlyR       Float?    @map("monthly_r")
+  monthlyRoi     Float?    @map("monthly_roi")
+  monthlyWinRate Float?    @map("monthly_win_rate")
+  pnl            Float?    @map("pnl")
+  pnlRate        Float?    @map("pnl_rate")
+  rate           Int?      @map("rate")
+  riskScore      Int?      @map("risk_score")
+  statAt         DateTime? @map("stat_at") @db.Timestamp(6)
+  trader         User      @relation(fields: [traderId], references: [id])
+  traderId       String    @unique
+  winRate        Float?    @map("win_rate")
+
+  @@index([statAt], map: "ix_trader_stats_stat_at")
+  @@map("trader_stats")
+}
+
+model TraderSuspension {
+  createdAt           DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById         String?   @map("created_by_id") @db.Uuid
+  id                  String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted           Boolean   @default(false) @map("is_deleted")
+  suspensionEndDate   DateTime? @map("suspension_end_date") @db.Timestamp(6)
+  suspensionStartDate DateTime? @map("suspension_start_date") @db.Timestamp(6)
+  trader              User      @relation(fields: [traderId], references: [id])
+  traderId            String    @unique
+  updatedAt           DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById         String?   @map("updated_by_id") @db.Uuid
+
+  @@index([createdAt], map: "ix_trader_suspension_created_at")
+  @@index([createdById], map: "ix_trader_suspension_created_by_id")
+  @@index([isDeleted], map: "ix_trader_suspension_is_deleted")
+  @@index([updatedById], map: "ix_trader_suspension_updated_by_id")
+  @@map("trader_suspension")
+}
+
+model User {
+  approvedAt                                     DateTime?                   @map("approved_at") @db.Timestamp(6)
+  canCopyTrade                                   Boolean                     @default(false) @map("can_copy_trade")
+  clap                                           Clap[]
+  copyTradeConnected                             Boolean                     @default(false) @map("copy_trade_connected")
+  copyTradeMarket                                String?                     @map("copy_trade_market") @db.VarChar
+  copyTradeMarketUid                             String?                     @map("copy_trade_market_uid") @db.VarChar
+  copyTradeOrder                                 CopyTradeOrder[]
+  copyTradesCopyTradesTraderIdTouser             CopyTrade[]                 @relation(name: "copyTradesCopyTradesTraderIdTouser")
+  copyTradesCopyTradesUserIdTouser               CopyTrade[]                 @relation(name: "copyTradesCopyTradesUserIdTouser")
+  createdAt                                      DateTime?                   @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById                                    String?                     @map("created_by_id") @db.Uuid
+  deviceId                                       String?                     @map("device_id") @db.VarChar
+  email                                          String?                     @unique @map("email") @db.VarChar
+  emailValidationCode                            String?                     @map("email_validation_code") @db.VarChar
+  firstName                                      String?                     @map("first_name") @db.VarChar
+  followNotifyFollowNotifyTraderIdTouser         FollowNotify[]              @relation(name: "followNotifyFollowNotifyTraderIdTouser")
+  followNotifyFollowNotifyUserIdTouser           FollowNotify[]              @relation(name: "followNotifyFollowNotifyUserIdTouser")
+  id                                             String                      @id @default(uuid()) @map("id") @db.Uuid
+  image                                          String?                     @map("image") @db.VarChar
+  instagram                                      String?                     @map("instagram") @db.VarChar
+  isActive                                       Boolean                     @default(false) @map("is_active")
+  isAdmin                                        Boolean                     @default(false) @map("is_admin")
+  isApproved                                     Boolean                     @default(false) @map("is_approved")
+  isChangePassword                               Boolean                     @default(false) @map("is_change_password")
+  isCopyNotify                                   Boolean                     @default(true) @map("is_copy_notify")
+  isCustomer                                     Boolean                     @default(false) @map("is_customer")
+  isDeleted                                      Boolean                     @default(false) @map("is_deleted")
+  isEmailVerified                                Boolean                     @default(false) @map("is_email_verified")
+  isMembershipCompleted                          Boolean                     @default(false) @map("is_membership_completed")
+  isNotify                                       Boolean                     @default(true) @map("is_notify")
+  isTrader                                       Boolean                     @default(false) @map("is_trader")
+  isTrending                                     Boolean                     @default(false) @map("is_trending")
+  language                                       String?                     @default("en") @map("language") @db.VarChar
+  lastName                                       String?                     @map("last_name") @db.VarChar
+  monthlyR                                       Int?                        @map("monthly_r") @db.SmallInt
+  monthlyRoi                                     String?                     @map("monthly_roi") @db.VarChar
+  name                                           String?                     @map("name") @db.VarChar
+  password                                       String?                     @map("hashed_password") @db.VarChar
+  phone                                          String?                     @unique @map("phone") @db.VarChar
+  rate                                           Int?                        @map("rate") @db.SmallInt
+  referralCodeReferralCodeTraderIdTouser         ReferralCode[]              @relation(name: "referralCodeReferralCodeTraderIdTouser")
+  referralCodeUserReferralCodeIdToreferralCode   ReferralCode?               @relation(name: "referralCodeUserReferralCodeIdToreferralCode", fields: [referralCodeId], references: [id])
+  referralCodeId                                 String?
+  registrationToken                              String?                     @map("registration_token") @db.VarChar
+  reportReportTraderIdTouser                     Report[]                    @relation(name: "reportReportTraderIdTouser")
+  reportReportUserIdTouser                       Report[]                    @relation(name: "reportReportUserIdTouser")
+  roles                                          Json
+  sessions                                       Session[]
+  setup                                          Setup[]
+  suspensionStartDate                            DateTime?                   @map("suspension_start_date") @db.Timestamp(6)
+  teamTraders                                    TeamTrader[]
+  teams                                          Team?
+  telegram                                       String?                     @map("telegram") @db.VarChar
+  traderProfile                                  TraderProfile?
+  traderReferralEarning                          TraderReferralEarning[]
+  traderSetupPnlPerformance                      TraderSetupPnlPerformance[]
+  traderStats                                    TraderStat?
+  traderSuspension                               TraderSuspension?
+  twitter                                        String?                     @map("twitter") @db.VarChar
+  uid                                            String?                     @map("uid") @db.VarChar
+  updatedAt                                      DateTime?                   @map("updated_at") @db.Timestamp(6)
+  updatedById                                    String?                     @map("updated_by_id") @db.Uuid
+  userNotificationUserNotificationTraderIdTouser UserNotification[]          @relation(name: "userNotificationUserNotificationTraderIdTouser")
+  userNotifications                              UserNotification[]          @relation(name: "UserOnUserNotifications")
+  userSubscriptionUserSubscriptionTraderIdTouser UserSubscription[]          @relation(name: "userSubscriptionUserSubscriptionTraderIdTouser")
+  userSubscriptions                              UserSubscription[]          @relation(name: "UserOnUserSubscriptions")
+  username                                       String?                     @unique
+  watchList                                      WatchList[]
+
+  @@index([approvedAt], map: "ix_user_approved_at")
+  @@index([createdAt], map: "ix_user_created_at")
+  @@index([createdById], map: "ix_user_created_by_id")
+  @@index([deviceId], map: "ix_user_device_id")
+  @@index([isActive], map: "ix_user_is_active")
+  @@index([isAdmin], map: "ix_user_is_admin")
+  @@index([isApproved], map: "ix_user_is_approved")
+  @@index([isCustomer], map: "ix_user_is_customer")
+  @@index([isDeleted], map: "ix_user_is_deleted")
+  @@index([isTrader], map: "ix_user_is_trader")
+  @@index([isTrending], map: "ix_user_is_trending")
+  @@index([name], map: "ix_user_name")
+  @@index([registrationToken], map: "ix_user_registration_token")
+  @@index([suspensionStartDate], map: "ix_user_suspension_start_date")
+  @@index([uid], map: "ix_user_uid")
+  @@index([updatedById], map: "ix_user_updated_by_id")
+  @@map("user")
+}
+
+model UserNotification {
+  columnValue   String?   @map("column_value") @db.VarChar
+  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById   String?   @map("created_by_id") @db.Uuid
+  id            String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted     Boolean   @default(false) @map("is_deleted")
+  isRead        Boolean?  @map("is_read")
+  message       String?   @map("message") @db.VarChar
+  messageId     String?   @map("message_id") @db.VarChar
+  setup         Setup?    @relation(fields: [setupId], references: [id])
+  setupId       String?
+  trader        User?     @relation(name: "userNotificationUserNotificationTraderIdTouser", fields: [traderId], references: [id])
+  traderId      String?
+  typeField     Int       @map("type") @db.SmallInt
+  updatedAt     DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById   String?   @map("updated_by_id") @db.Uuid
+  updatedColumn String?   @map("updated_column") @db.VarChar
+  user          User?     @relation(name: "UserOnUserNotifications", fields: [userId], references: [id])
+  userId        String?
+
+  @@index([createdAt], map: "ix_user_notification_created_at")
+  @@index([createdById], map: "ix_user_notification_created_by_id")
+  @@index([isDeleted], map: "ix_user_notification_is_deleted")
+  @@index([updatedById], map: "ix_user_notification_updated_by_id")
+  @@map("user_notification")
+}
+
+model UserSubscription {
+  autoRenewProductCode  String?                 @map("auto_renew_product_code") @db.VarChar
+  autoRenewStatus       Boolean                 @default(false) @map("auto_renew_status")
+  createdAt             DateTime?               @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById           String?                 @map("created_by_id") @db.Uuid
+  currency              String?                 @map("currency") @db.VarChar
+  data                  String                  @map("data") @db.VarChar
+  expireDate            DateTime                @map("expire_date") @db.Timestamp(6)
+  id                    String                  @id @default(uuid()) @map("id") @db.Uuid
+  isCancelled           Boolean                 @map("is_cancelled")
+  isDeleted             Boolean                 @default(false) @map("is_deleted")
+  isExpired             Boolean                 @map("is_expired")
+  isPaymentReceived     Boolean?                @map("is_payment_received")
+  isTrial               Boolean                 @map("is_trial")
+  market                String                  @map("market") @db.VarChar
+  price                 Float?                  @map("price")
+  product               Product?                @relation(fields: [productId], references: [id])
+  productId             String?
+  rawData               String                  @map("raw_data")
+  startDate             DateTime                @map("start_date") @db.Timestamp(6)
+  subscriptionPool      SubscriptionPool[]
+  trader                User?                   @relation(name: "userSubscriptionUserSubscriptionTraderIdTouser", fields: [traderId], references: [id])
+  traderId              String?
+  traderReferralEarning TraderReferralEarning[]
+  transactionId         String                  @map("transaction_id") @db.VarChar
+  updatedAt             DateTime?               @map("updated_at") @db.Timestamp(6)
+  updatedById           String?                 @map("updated_by_id") @db.Uuid
+  user                  User                    @relation(name: "UserOnUserSubscriptions", fields: [userId], references: [id])
+  userId                String
+
+  @@unique([market, transactionId])
+  @@index([createdAt], map: "ix_user_subscription_created_at")
+  @@index([createdById], map: "ix_user_subscription_created_by_id")
+  @@index([expireDate], map: "ix_user_subscription_expire_date")
+  @@index([isCancelled], map: "ix_user_subscription_is_cancelled")
+  @@index([isDeleted], map: "ix_user_subscription_is_deleted")
+  @@index([isExpired], map: "ix_user_subscription_is_expired")
+  @@index([startDate], map: "ix_user_subscription_start_date")
+  @@index([transactionId], map: "ix_user_subscription_transaction_id")
+  @@index([updatedById], map: "ix_user_subscription_updated_by_id")
+  @@map("user_subscription")
+}
+
+model WatchList {
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdById String?   @map("created_by_id") @db.Uuid
+  id          String    @id @default(uuid()) @map("id") @db.Uuid
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  setup       Setup?    @relation(fields: [setupId], references: [id])
+  setupId     String?
+  updatedAt   DateTime? @map("updated_at") @db.Timestamp(6)
+  updatedById String?   @map("updated_by_id") @db.Uuid
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([userId, setupId])
+  @@index([createdAt], map: "ix_watch_list_created_at")
+  @@index([createdById], map: "ix_watch_list_created_by_id")
+  @@index([isDeleted], map: "ix_watch_list_is_deleted")
+  @@index([updatedById], map: "ix_watch_list_updated_by_id")
+  @@map("watch_list")
+}
+
+model Session {
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  hash      String    @map("hash") @db.VarChar
+  id        String    @id @default(uuid()) @map("id") @db.Uuid
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@unique([hash], map: "ix_session_hash")
+  @@index([createdAt], map: "ix_session_created_at")
+  @@map("session")
+}
+
+enum EnumSetupCategory {
+  spot
+  futures
+}
+
+enum EnumSetupDuration {
+  shortterm
+  midterm
+  longterm
+}
+
+enum EnumSetupPosition {
+  long
+  short
+}
+
+enum EnumSetupStatus {
+  incoming
+  active
+  cancelled
+  stopped
+  success
+  closed
+}

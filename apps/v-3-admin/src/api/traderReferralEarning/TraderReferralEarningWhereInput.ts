@@ -1,0 +1,30 @@
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { UserSubscriptionWhereUniqueInput } from "../userSubscription/UserSubscriptionWhereUniqueInput";
+
+export type TraderReferralEarningWhereInput = {
+  amount?: FloatNullableFilter;
+  cancellationDate?: DateTimeNullableFilter;
+  createdAt?: DateTimeNullableFilter;
+  createdById?: StringNullableFilter;
+  id?: StringFilter;
+  installment?: IntFilter;
+  installments?: IntFilter;
+  isCancelled?: BooleanFilter;
+  isDeleted?: BooleanFilter;
+  isPaid?: BooleanFilter;
+  isWithdrawal?: BooleanFilter;
+  paidDate?: DateTimeNullableFilter;
+  traderEarnDate?: DateTimeFilter;
+  updatedAt?: DateTimeNullableFilter;
+  updatedById?: StringNullableFilter;
+  user?: UserWhereUniqueInput;
+  userSubscription?: UserSubscriptionWhereUniqueInput;
+  withdrawalDate?: DateTimeNullableFilter;
+};
